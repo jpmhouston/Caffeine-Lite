@@ -69,11 +69,6 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, SPUStandardU
         }
     }
     
-    func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
-        self.showPreferences(nil)
-        return false
-    }
-
     override func awakeFromNib() {
         statusItemMenuIcon = NSImage(named: "inactive")
         statusItemMenuIcon.isTemplate = true

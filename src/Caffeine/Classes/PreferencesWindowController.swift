@@ -114,7 +114,7 @@ class PreferencesWindowController: NSWindowController {
     override func windowDidLoad() {
         super.windowDidLoad()
         
-        showAtLaunchButton.state = UserDefaults.standard.bool(forKey: "CASuppressLaunchMessage") ? .on : .off
+        showAtLaunchButton.state = UserDefaults.standard.bool(forKey: "CASuppressLaunchMessage") ? .off : .on
         activateAtLaunchButton.state = UserDefaults.standard.bool(forKey: "CAActivateAtLaunch") ? .on : .off
         deactivateOnManualSleepButton.state = UserDefaults.standard.bool(forKey: "CADeactivateOnManualSleep") ? .on : .off
         durationButton.selectItem(withTag: UserDefaults.standard.integer(forKey: "CADefaultDuration"))

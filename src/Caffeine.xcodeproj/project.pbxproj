@@ -22,6 +22,7 @@
 		F21DAB752C316A530044ACF2 /* PreferencesWindowController.strings in Resources */ = {isa = PBXBuildFile; fileRef = F21DAB732C316A530044ACF2 /* PreferencesWindowController.strings */; };
 		F21DAB822C316B1C0044ACF2 /* PreferencesWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21DAB812C316B1C0044ACF2 /* PreferencesWindowController.swift */; };
 		F21DAB852C316B4B0044ACF2 /* PreferencesWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F21DAB832C316B4B0044ACF2 /* PreferencesWindowController.xib */; };
+		F2FAEE9D2D7599330082C855 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = F2FAEE9C2D7599330082C855 /* PrivacyInfo.xcprivacy */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -89,6 +90,7 @@
 		F21DAB802C316A990044ACF2 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/PreferencesWindowController.strings"; sourceTree = "<group>"; };
 		F21DAB812C316B1C0044ACF2 /* PreferencesWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreferencesWindowController.swift; sourceTree = "<group>"; };
 		F21DAB842C316B4B0044ACF2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/PreferencesWindowController.xib; sourceTree = "<group>"; };
+		F2FAEE9C2D7599330082C855 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,6 +161,7 @@
 				F21DAB832C316B4B0044ACF2 /* PreferencesWindowController.xib */,
 				F21DAB132C30423D0044ACF2 /* Info.plist */,
 				F21DAB032C3040F70044ACF2 /* Assets.xcassets */,
+				F2FAEE9C2D7599330082C855 /* PrivacyInfo.xcprivacy */,
 				F21DAB082C3040F70044ACF2 /* Caffeine.entitlements */,
 			);
 			name = Resources;
@@ -254,6 +257,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F21DAB2D2C30483A0044ACF2 /* MainMenu.strings in Resources */,
+				F2FAEE9D2D7599330082C855 /* PrivacyInfo.xcprivacy in Resources */,
 				F21DAB542C3048A80044ACF2 /* active.png in Resources */,
 				F21DAB562C3048A80044ACF2 /* inactive.png in Resources */,
 				F21DAB572C3048A80044ACF2 /* inactive@2x.png in Resources */,
@@ -483,7 +487,7 @@
 				CODE_SIGN_ENTITLEMENTS = Caffeine/Caffeine.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 22;
+				CURRENT_PROJECT_VERSION = 23;
 				DEVELOPMENT_TEAM = 568T6RKXH7;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = ../sparkle/framework;
@@ -498,7 +502,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.5;
+				MARKETING_VERSION = 1.5.1;
 				PRODUCT_BUNDLE_IDENTIFIER = net.domzilla.caffeine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -514,7 +518,7 @@
 				CODE_SIGN_ENTITLEMENTS = Caffeine/Caffeine.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 22;
+				CURRENT_PROJECT_VERSION = 23;
 				DEVELOPMENT_TEAM = 568T6RKXH7;
 				ENABLE_HARDENED_RUNTIME = YES;
 				FRAMEWORK_SEARCH_PATHS = ../sparkle/framework;
@@ -529,7 +533,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.5;
+				MARKETING_VERSION = 1.5.1;
 				PRODUCT_BUNDLE_IDENTIFIER = net.domzilla.caffeine;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

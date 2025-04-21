@@ -3,6 +3,7 @@
 //  Caffeine
 //
 //  Created by Dominic Rodemer on 29.06.24.
+//  Portions Copyright © 2025 Pierre Houston, Bananameter Labs. All rights reserved.
 //
 
 import Cocoa
@@ -10,7 +11,7 @@ import IOKit.pwr_mgt
 import Sparkle
 
 @main
-class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, SPUStandardUserDriverDelegate {
+class AppDelegate: NSObject, NSApplicationDelegate, SPUStandardUserDriverDelegate {
     
     var isActive:Bool
     var userSessionIsActive:Bool
@@ -19,14 +20,9 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, SPUStandardU
     var timeoutTimer:Timer?
     var sleepAssertionID:IOPMAssertionID?
     
-    var statusItem:NSStatusItem!
-    var statusItemMenuIcon:NSImage!
-    var statusItemMenuIconActive:NSImage!
-    
     @IBOutlet var menu:NSMenu!
-    @IBOutlet var infoMenuItem:NSMenuItem!
-    @IBOutlet var infoSeparatorItem:NSMenuItem!
-    
+    @IBOutlet var deactivateItem:NSMenuItem!
+
     var preferencesWindowController:PreferencesWindowController!
     var updaterController:SPUStandardUpdaterController!
     
@@ -57,34 +53,33 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, SPUStandardU
                                                           name: NSWorkspace.willSleepNotification,
                                                           object: nil)
         
-        UserDefaults.standard.register(defaults: ["CASuppressLaunchMessage" : false])
+        UserDefaults.standard.register(defaults: ["CAActivateAtLaunch": false, "CADefaultDuration": 0, "CADeactivateOnManualSleep": false])
         
         preferencesWindowController = PreferencesWindowController(windowNibName: "PreferencesWindowController")
         updaterController = SPUStandardUpdaterController(startingUpdater: true,
                                                          updaterDelegate: nil,
                                                          userDriverDelegate: self);
         
-        if !UserDefaults.standard.bool(forKey: "CASuppressLaunchMessage") {
-            self.showPreferences(nil)
-        }
+        self.showPreferences(nil)
     }
     
     override func awakeFromNib() {
-        statusItemMenuIcon = NSImage(named: "inactive")
-        statusItemMenuIcon.isTemplate = true
-        statusItemMenuIconActive = NSImage(named: "active")
-        statusItemMenuIconActive.isTemplate = true
-        
-        statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
-        statusItem.button?.image = statusItemMenuIcon
-        statusItem.button?.sendAction(on: [.leftMouseUp, .rightMouseUp])
-        statusItem.button?.action = #selector(AppDelegate.statusItemAction(_:))
-        statusItem.button?.target = self
-        
         if UserDefaults.standard.bool(forKey: "CAActivateAtLaunch") {
             self.activate()
+        } else {
+            self.updateUI()
         }
     }
+    
+    func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
+        return true
+    }
+    
+    func applicationSupportsSecureRestorableState(_ app: NSApplication) -> Bool {
+        // required when linking against macOS 14 SDK to silence a runtime warning
+        return true
+    }
+    
     
     // MARK: Actions
     // MARK: ---
@@ -110,13 +105,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, SPUStandardU
         self.deactivate()
     }
     
-    @IBAction func statusItemAction(_ sender:Any?) {
-        let event = NSApp.currentEvent
-        if event?.type == .rightMouseUp {
-            statusItem.popUpMenu(menu)
-        } else {
-            toggleActive(sender)
-        }
+    @IBAction func deactivate(_ sender:Any?) {
+        self.deactivate()
     }
     
     @IBAction func activateWithTimeout(_ sender:NSMenuItem) {
@@ -136,9 +126,10 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, SPUStandardU
     
     @IBAction func showAbout(_ sender:Any?) {
         NSApp.activate(ignoringOtherApps: true)
+        NSApp.orderFrontStandardAboutPanel(sender)
         
-        let credits = "© 2006 Tomas Franzén \n © 2018 Michael Jones \n © 2022 Dominic Rodemer \n\n Source code: \n https://github.caffeine-app.net"
-        NSApp.orderFrontStandardAboutPanel(options: [.credits : credits])
+        //let credits = "© 2006 Tomas Franzén\n© 2018 Michael Jones\n© 2022 Dominic Rodemer\n© 2025 Bananameter Labs \n\nSource code: https://github.com/jpmhouston/Caffeine-Lite"
+        //NSApp.orderFrontStandardAboutPanel(options: [.credits : credits])
     }
     
     @IBAction func showPreferences(_ sender:Any?) {
@@ -171,7 +162,8 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, SPUStandardU
         }
         
         isActive = true
-        statusItem.button?.image = self.statusItemMenuIconActive
+        
+        self.updateUI()
     }
     
     func deactivate() {
@@ -182,7 +174,7 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, SPUStandardU
         }
         timeoutTimer = nil
         
-        statusItem.button?.image = statusItemMenuIcon
+        self.updateUI()
     }
     
     func toggleActive(_ sender:Any?) {
@@ -210,31 +202,24 @@ class AppDelegate: NSObject, NSApplicationDelegate, NSMenuDelegate, SPUStandardU
     }
     
     
-    // MARK: NSMenuDelegate
-    // MARK: ---
-    func menuNeedsUpdate(_ menu: NSMenu) {
-        if isActive {
-            infoMenuItem.isHidden = false
-            infoSeparatorItem.isHidden = false
+    // MARK:  UI Synchronization
+    // MARK:  ---
+    func updateUI() {
+        DispatchQueue.main.async { [weak self] in // since call from timer probably happens off the main thrad
+            guard let self = self else { return }
             
-            if let timeoutTimer = self.timeoutTimer {
-                let left = Int(timeoutTimer.fireDate.timeIntervalSinceNow)
-                if left >= 3600 {
-                    infoMenuItem.title = String(format: "%02d:%02d", left/3600, (left%3600)/60)
-                } else if left > 60 {
-                    infoMenuItem.title = String(format: NSLocalizedString("%d minutes", comment: "e.g. 5 minutes"), left/60)
+            for item in self.menu.items {
+                if item == self.deactivateItem {
+                    item.isEnabled = self.isActive
                 } else {
-                    infoMenuItem.title = String(format: NSLocalizedString("%d seconds", comment: "e.g. 54 seconds"), left)
+                    item.isEnabled = !self.isActive
                 }
-            } else {
-                infoMenuItem.title = NSLocalizedString("Caffeine is active", comment: "Indicate that Caffeine is active")
             }
-        } else {
-            infoMenuItem.isHidden = true
-            infoSeparatorItem.isHidden = true
+            
+            self.preferencesWindowController.showActivated(self.isActive)
         }
     }
-
+    
     
     // MARK: SPUStandardUserDriverDelegate
     // MARK: ---

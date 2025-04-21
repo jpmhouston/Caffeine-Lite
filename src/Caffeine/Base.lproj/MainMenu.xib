@@ -1,48 +1,154 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23727" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22690"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23727"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
             <connections>
-                <outlet property="delegate" destination="Voe-Tx-rLC" id="GzC-gU-4Uq"/>
+                <outlet property="delegate" destination="Voe-Tx-rLC" id="Gcc-cc-4AV"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
-        <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Caffeine" customModuleProvider="target">
+        <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="Caffeine_Lite" customModuleProvider="target">
             <connections>
-                <outlet property="infoMenuItem" destination="cA9-iR-gAT" id="bXe-Ep-jsY"/>
-                <outlet property="infoSeparatorItem" destination="FyX-lk-NVr" id="ddS-bS-e9S"/>
-                <outlet property="menu" destination="AZ0-dt-8Ex" id="P6z-LH-Web"/>
+                <outlet property="deactivateItem" destination="GN4-OV-Txg" id="9th-0c-of3"/>
+                <outlet property="menu" destination="mZz-y9-zCU" id="Bgd-9S-yw0"/>
             </connections>
         </customObject>
-        <menu title="Menu" autoenablesItems="NO" id="AZ0-dt-8Ex" userLabel="Icon Menu">
+        <menu title="Main Menu" systemMenu="main" id="0EL-gP-GTE">
             <items>
-                <menuItem title="Caffeine is active" hidden="YES" enabled="NO" id="cA9-iR-gAT"/>
-                <menuItem isSeparatorItem="YES" id="FyX-lk-NVr"/>
-                <menuItem title="About Caffeine" id="rcn-oW-Rpo">
-                    <connections>
-                        <action selector="showAbout:" target="Voe-Tx-rLC" id="t3L-tL-T8M"/>
-                    </connections>
-                </menuItem>
-                <menuItem title="Preferences..." id="6TR-9J-dnY">
-                    <connections>
-                        <action selector="showPreferences:" target="Voe-Tx-rLC" id="Nmd-Ob-3EN"/>
-                    </connections>
-                </menuItem>
-                <menuItem title="Check for Updates..." id="etS-Zo-OOt">
+                <menuItem title="Caffeine Lite" id="81P-xQ-AuU">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <connections>
-                        <action selector="checkForUpdates:" target="Voe-Tx-rLC" id="Av7-uj-QwG"/>
-                    </connections>
+                    <menu key="submenu" title="Caffeine Lite" systemMenu="apple" id="AO4-52-x9S">
+                        <items>
+                            <menuItem title="About Caffeine Lite" id="GOQ-5O-Wff">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="showAbout:" target="Voe-Tx-rLC" id="0D3-wc-m28"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="S71-9H-yqX"/>
+                            <menuItem title="Preferences…" keyEquivalent="," id="rkV-WZ-HT0">
+                                <connections>
+                                    <action selector="showPreferences:" target="Voe-Tx-rLC" id="Id5-zZ-Ivz"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Check for Updates..." id="etS-Zo-OOt">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="checkForUpdates:" target="Voe-Tx-rLC" id="Av7-uj-QwG"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="ped-ap-4yD"/>
+                            <menuItem title="Services" id="qTP-ba-yQV">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <menu key="submenu" title="Services" systemMenu="services" id="sXs-ko-ZvQ"/>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="vAh-H0-wZt"/>
+                            <menuItem title="Hide Caffeine Lite" keyEquivalent="h" id="WkF-Hr-fgG">
+                                <connections>
+                                    <action selector="hide:" target="-1" id="fPj-1L-I2Y"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Hide Others" keyEquivalent="h" id="7Ka-l4-KZg">
+                                <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                <connections>
+                                    <action selector="hideOtherApplications:" target="-1" id="3ZU-7p-JfV"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Show All" id="oHo-cX-Y5U">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="unhideAllApplications:" target="-1" id="RYK-Gn-pgg"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="E5u-a6-VZD"/>
+                            <menuItem title="Quit Caffeine Lite" keyEquivalent="q" id="OLj-GO-2wN">
+                                <connections>
+                                    <action selector="terminate:" target="-1" id="U4c-Sc-hlI"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
                 </menuItem>
-                <menuItem isSeparatorItem="YES" id="2eT-bV-f14"/>
-                <menuItem title="Activate for" id="Zuc-Th-9uK">
+                <menuItem title="File" id="RdP-Fj-m02">
                     <modifierMask key="keyEquivalentModifierMask"/>
-                    <menu key="submenu" title="Activate for" id="oeo-Ey-e9k">
+                    <menu key="submenu" title="File" id="8bV-x1-eE0">
+                        <items>
+                            <menuItem title="New" keyEquivalent="n" id="06a-U3-TfM">
+                                <connections>
+                                    <action selector="newDocument:" target="-1" id="WUP-O1-y5M"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Open…" keyEquivalent="o" id="PyY-Nq-3Zi">
+                                <connections>
+                                    <action selector="openDocument:" target="-1" id="AbI-fd-wgO"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" enabled="YES" id="E6E-ts-6aD"/>
+                            <menuItem title="Close" keyEquivalent="w" id="qXY-Ni-gHB">
+                                <connections>
+                                    <action selector="performClose:" target="-1" id="s9b-oT-N3k"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Save…" keyEquivalent="s" id="CSh-eX-eQ5">
+                                <connections>
+                                    <action selector="saveDocument:" target="-1" id="uTF-7c-O7X"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+                <menuItem title="Edit" id="nka-um-MQa">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Edit" id="zFK-7L-wRw">
+                        <items>
+                            <menuItem title="Undo" keyEquivalent="z" id="0vK-aQ-Dyr">
+                                <connections>
+                                    <action selector="undo:" target="-1" id="f44-12-ZKn"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Redo" keyEquivalent="Z" id="ZEP-nk-HHY">
+                                <connections>
+                                    <action selector="redo:" target="-1" id="BC7-Lp-JJv"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="x30-Pl-ZLt"/>
+                            <menuItem title="Cut" keyEquivalent="x" id="CA5-Vm-YzQ">
+                                <connections>
+                                    <action selector="cut:" target="-1" id="af5-T4-DZi"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Copy" keyEquivalent="c" id="Hda-Ld-LUt">
+                                <connections>
+                                    <action selector="copy:" target="-1" id="nsP-L1-0tR"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Paste" keyEquivalent="v" id="w4z-2R-yg0">
+                                <connections>
+                                    <action selector="paste:" target="-1" id="2ss-Gk-TeA"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Delete" id="BrK-dE-7GF">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="delete:" target="-1" id="ohz-ye-pit"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Select All" keyEquivalent="a" id="egT-FI-UVH">
+                                <connections>
+                                    <action selector="selectAll:" target="-1" id="LUv-6I-VGp"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
+                </menuItem>
+                <menuItem title="Activate" id="4w2-NF-NQ1">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Activate" autoenablesItems="NO" id="mZz-y9-zCU">
                         <items>
                             <menuItem title="Indefinitely" id="Iwc-W2-wkm">
                                 <modifierMask key="keyEquivalentModifierMask"/>
@@ -104,22 +210,55 @@
                                     <action selector="activateWithTimeout:" target="Voe-Tx-rLC" id="ZcJ-Cy-3Zc"/>
                                 </connections>
                             </menuItem>
+                            <menuItem isSeparatorItem="YES" id="hdG-Hg-PxG"/>
+                            <menuItem title="Deactivate" id="GN4-OV-Txg">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="deactivate:" target="Voe-Tx-rLC" id="3EX-7G-d3A"/>
+                                </connections>
+                            </menuItem>
                         </items>
                     </menu>
                 </menuItem>
-                <menuItem isSeparatorItem="YES" id="OSk-iD-vFe">
-                    <modifierMask key="keyEquivalentModifierMask" command="YES"/>
+                <menuItem title="Window" id="4VZ-ti-iel">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Window" systemMenu="window" id="3Vi-ST-7Yg">
+                        <items>
+                            <menuItem title="Minimize" keyEquivalent="m" id="b1e-8S-eqV">
+                                <connections>
+                                    <action selector="performMiniaturize:" target="-1" id="MLF-RR-RJj"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Zoom" id="a0t-iE-b0U">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="performZoom:" target="-1" id="rHz-RB-dCk"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem isSeparatorItem="YES" id="6IV-GY-zPK"/>
+                            <menuItem title="Bring All to Front" id="Ys0-CJ-iif">
+                                <modifierMask key="keyEquivalentModifierMask"/>
+                                <connections>
+                                    <action selector="arrangeInFront:" target="-1" id="oS4-u0-bvu"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
                 </menuItem>
-                <menuItem title="Quit" id="Fvr-Ow-96R">
-                    <connections>
-                        <action selector="terminate:" target="-2" id="GrA-a7-JUU"/>
-                    </connections>
+                <menuItem title="Help" id="4Hr-Xz-Tp9">
+                    <modifierMask key="keyEquivalentModifierMask"/>
+                    <menu key="submenu" title="Help" systemMenu="help" id="cUw-2o-VNJ">
+                        <items>
+                            <menuItem title="Caffeine Lite Help" enabled="NO" keyEquivalent="?" id="vjE-W3-RHT">
+                                <connections>
+                                    <action selector="showHelp:" target="-1" id="lhn-t3-3Y7"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
                 </menuItem>
             </items>
-            <connections>
-                <outlet property="delegate" destination="Voe-Tx-rLC" id="8zt-2F-d34"/>
-            </connections>
-            <point key="canvasLocation" x="-398" y="-174"/>
+            <point key="canvasLocation" x="-258" y="-330"/>
         </menu>
     </objects>
 </document>

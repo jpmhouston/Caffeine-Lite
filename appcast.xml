@@ -1,0 +1,18 @@
+<?xml version="1.0" standalone="yes"?>
+<rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+    <channel>
+        <title>Caffeine Lite</title>
+        <item>
+            <title>1.0</title>
+            <pubDate>Mon, 21 Apr 2025 02:01:37 -0700</pubDate>
+            <sparkle:version>1</sparkle:version>
+            <sparkle:shortVersionString>1.0</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>11.0</sparkle:minimumSystemVersion>
+            <description><![CDATA[<ul>
+<li>Caffeine -&gt; Caffeine Lite</li>
+</ul>
+]]></description>
+            <enclosure url="https://github.com/jpmhouston/Caffeine-Lite/releases/download/v1.0/Caffeine.Lite.1.0.zip" length="4612492" type="application/octet-stream" sparkle:edSignature="saTsAZc/Oofa616iPsRVohg2raP0xu2ZygWMwu3RSQ0pN9AYvoLz8C9tj0c58osm0L6LkWemG9FCZylKSV1zCA=="/>
+        </item>
+    </channel>
+</rss>
